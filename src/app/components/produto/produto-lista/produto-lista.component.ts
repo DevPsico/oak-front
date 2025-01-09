@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Produto } from 'src/app/models/produto';
-import { Router } from '@angular/router'; // Importe o Router
+import { ProdutoService } from 'src/app/services/produto.services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-produto-lista',
@@ -10,43 +11,33 @@ import { Router } from '@angular/router'; // Importe o Router
   styleUrls: ['./produto-lista.component.css']
 })
 export class ProdutoListaComponent implements OnInit {
-
-
-  PRODUTO_DATA: Produto[] = [
-  { nomeProduto: 'Hydrogen', descricaoProduto: 'Hydrogen', valorProduto: 1.0079, disponivelParaVenda: true} ,
-  { nomeProduto: 'Helium', descricaoProduto: 'Helium', valorProduto: 4.0026, disponivelParaVenda:false },
-  { nomeProduto: 'Lithium', descricaoProduto: 'Lithium', valorProduto: 6.941, disponivelParaVenda: true },
-  { nomeProduto: 'Beryllium', descricaoProduto: 'Beryllium', valorProduto: 9.0122, disponivelParaVenda: true },
-  { nomeProduto: 'Boron', descricaoProduto:'Boron', valorProduto: 10.811, disponivelParaVenda: true },
-  { nomeProduto: 'Carbon', descricaoProduto: 'Carbon', valorProduto: 12.0107, disponivelParaVenda: true },
-  { nomeProduto: 'Nitrogen', descricaoProduto: 'Nitrogen', valorProduto: 14.0067, disponivelParaVenda: true },
-  { nomeProduto: 'Oxygen', descricaoProduto:'Oxygen', valorProduto: 15.9994, disponivelParaVenda: false },
-  { nomeProduto: 'Fluorine', descricaoProduto: 'Fluroine', valorProduto: 18.9984, disponivelParaVenda: true },
-  ];
- 
-
-  displayedColumns: string[] = [ 'nome', 'descricao','valor',  'dispVenda'];
-  dataSource = new MatTableDataSource<Produto>(this.PRODUTO_DATA);
+  displayedColumns: string[] = ['nome', 'descricao', 'valor', 'dispVenda'];
+  dataSource = new MatTableDataSource<Produto>([]); // Inicializa com array vazio
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-
-
-  constructor(private router: Router) { }
+  constructor(private produtoService: ProdutoService, private router: Router) {}
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
+    this.carregarProdutos();
   }
 
-  
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  carregarProdutos(): void {
+    this.produtoService.listarProdutos().subscribe(
+      (produtos) => {
+        console.log('Produtos recebidos:', produtos); // Verifique se os produtos estão sendo recebidos
+       
+             // Ordena os produtos pelo valor do menor para o maior
+      this.dataSource.data = produtos.sort((a, b) => a.valorProduto - b.valorProduto);
+        this.dataSource.paginator = this.paginator; // Configura o paginador
+      },
+      (error) => {
+        console.error('Erro ao carregar produtos:', error);
+      }
+    );
   }
 
   navigateToCadastroProduto(): void {
-    this.router.navigate(['/cadastroprod']); // Navega para a página de cadastro
+    this.router.navigate(['/cadastroprod']);
   }
-
-
 }

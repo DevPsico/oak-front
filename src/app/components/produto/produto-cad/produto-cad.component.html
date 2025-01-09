@@ -1,33 +1,49 @@
-
 <div class="container">
-<form (ngSubmit)="cadastrarProduto()" class="form mat-elevation-z8">
+  <form (ngSubmit)="cadastrarProduto()" class="form mat-elevation-z8">
 
-  <h1> Cadastro de produto</h1>
+    <h1>Cadastro de produto</h1>
 
-  <mat-form-field class="full-width" appearance="fill">
-    <mat-label>Nome Produto</mat-label>
-    <input [formControl]="nome" required [(ngModel)] = "produto.nomeProduto" matInput placeholder="Ex. Pizza">
-  </mat-form-field>
+    <mat-form-field class="full-width" appearance="fill">
+      <mat-label>Nome Produto</mat-label>
+      <input [formControl]="nome" required matInput placeholder="Ex. Pizza" />
+      <mat-error *ngIf="nome.invalid && nome.touched">
+        O nome deve ter pelo menos 5 caracteres.
+      </mat-error>
+    </mat-form-field>
 
-  <mat-form-field class="full-width" appearance="fill">
-    <mat-label>Descrição produto</mat-label>
-    <input [formControl]="descricao" required [(ngModel)] = "produto.descricaoProduto" matInput placeholder="Ex. Pizza">
-  </mat-form-field>
+    <mat-form-field class="full-width" appearance="fill">
+      <mat-label>Descrição Produto</mat-label>
+      <input [formControl]="descricao" required matInput placeholder="Ex. Pizza" />
+      <mat-error *ngIf="descricao.invalid && descricao.touched">
+        A descrição deve ter pelo menos 5 caracteres.
+      </mat-error>
+    </mat-form-field>
 
-  <mat-form-field class="full-width" appearance="fill">
-    <mat-label>Valor produto</mat-label>
-    <input [formControl]="valor" required [(ngModel)] = "produto.valorProduto" type="number" matInput placeholder="Ex. 20,50">
-  </mat-form-field>
+    <mat-form-field class="full-width" appearance="fill">
+      <mat-label>Valor Produto</mat-label>
+      <input [formControl]="valor" required type="number" matInput placeholder="Ex. 20,50" />
+      <mat-error *ngIf="valor.invalid && valor.touched">
+        O valor é obrigatório.
+      </mat-error>
+    </mat-form-field>
 
-  <h1> Produto disponível </h1>
+    <h1>Produto disponível</h1>
 
-  <mat-radio-group aria-label="Select an option"  >
-    <mat-radio-button value="1">Sim</mat-radio-button>
-    <mat-radio-button value="2">Não</mat-radio-button>
-  </mat-radio-group>
+    <mat-radio-group [formControl]="dispVenda">
+      <mat-radio-button [value]="true">Sim</mat-radio-button>
+      <mat-radio-button [value]="false">Não</mat-radio-button>
+    </mat-radio-group>
+    <mat-error *ngIf="dispVenda.invalid && dispVenda.touched">
+      Selecione uma opção.
+    </mat-error>
 
-  <button  class="full-width mat-elevation-z8" mat-raised-button  color="accent" >Cadastrar produto</button>
-  
-</form>
-
+    <button
+      class="full-width mat-elevation-z8"
+      mat-raised-button
+      color="accent"
+      [disabled]="!validaCampos()"
+    >
+      Cadastrar Produto
+    </button>
+  </form>
 </div>

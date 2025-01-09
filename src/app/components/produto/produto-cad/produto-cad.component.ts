@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Produto } from 'src/app/models/produto';
 import { ProdutoService } from 'src/app/services/produto.services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-produto-cad',
@@ -22,7 +23,11 @@ export class ProdutoCadComponent implements OnInit {
   valor = new FormControl(null, Validators.required);
   dispVenda = new FormControl(null, Validators.required);
 
-  constructor(private fb: FormBuilder, private produtoService: ProdutoService) { }
+  constructor(
+    private fb: FormBuilder, 
+    private produtoService: ProdutoService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.nome.setValue(''); // Inicializar com string vazia
@@ -36,6 +41,7 @@ export class ProdutoCadComponent implements OnInit {
     console.log('Descrição válida: ', this.descricao.valid);
     console.log('Valor válido: ', this.valor.valid);
     console.log('Disponível para venda válido: ', this.dispVenda.valid);
+
     return this.nome.valid && this.descricao.valid && this.valor.valid && this.dispVenda.valid;
   }
 
@@ -48,6 +54,8 @@ export class ProdutoCadComponent implements OnInit {
     this.produto.disponivelParaVenda = this.dispVenda.value;  // Atribuindo o valor correto
 
     console.log('Produto antes de enviar:', this.produto);
+
+    this.router.navigate(['/']);
 
       // Chamar o serviço para cadastrar o produto no backend
       this.produtoService.cadastrarProduto(this.produto).subscribe(
