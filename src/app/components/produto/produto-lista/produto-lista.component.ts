@@ -13,15 +13,15 @@ export class ProdutoListaComponent implements OnInit {
 
 
   PRODUTO_DATA: Produto[] = [
-  { nome: 'Hydrogen', descricao: 'Hydrogen', valor: 1.0079, dispVenda: true} ,
-  { nome: 'Helium', descricao: 'Helium', valor: 4.0026, dispVenda:false },
-  { nome: 'Lithium', descricao: 'Lithium', valor: 6.941, dispVenda: true },
-  { nome: 'Beryllium', descricao: 'Beryllium', valor: 9.0122, dispVenda: true },
-  { nome: 'Boron', descricao:'Boron', valor: 10.811, dispVenda: true },
-  { nome: 'Carbon', descricao: 'Carbon', valor: 12.0107, dispVenda: true },
-  { nome: 'Nitrogen', descricao: 'Nitrogen', valor: 14.0067, dispVenda: true },
-  { nome: 'Oxygen', descricao:'Oxygen', valor: 15.9994, dispVenda: false },
-  { nome: 'Fluorine', descricao: 'Fluroine', valor: 18.9984, dispVenda: true },
+  { nomeProduto: 'Hydrogen', descricaoProduto: 'Hydrogen', valorProduto: 1.0079, disponivelParaVenda: true} ,
+  { nomeProduto: 'Helium', descricaoProduto: 'Helium', valorProduto: 4.0026, disponivelParaVenda:false },
+  { nomeProduto: 'Lithium', descricaoProduto: 'Lithium', valorProduto: 6.941, disponivelParaVenda: true },
+  { nomeProduto: 'Beryllium', descricaoProduto: 'Beryllium', valorProduto: 9.0122, disponivelParaVenda: true },
+  { nomeProduto: 'Boron', descricaoProduto:'Boron', valorProduto: 10.811, disponivelParaVenda: true },
+  { nomeProduto: 'Carbon', descricaoProduto: 'Carbon', valorProduto: 12.0107, disponivelParaVenda: true },
+  { nomeProduto: 'Nitrogen', descricaoProduto: 'Nitrogen', valorProduto: 14.0067, disponivelParaVenda: true },
+  { nomeProduto: 'Oxygen', descricaoProduto:'Oxygen', valorProduto: 15.9994, disponivelParaVenda: false },
+  { nomeProduto: 'Fluorine', descricaoProduto: 'Fluroine', valorProduto: 18.9984, disponivelParaVenda: true },
   ];
  
 

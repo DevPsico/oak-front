@@ -22,10 +22,6 @@ import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 registerLocaleData(localePt);  // Registrando a localidade pt-BR
 
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent, 

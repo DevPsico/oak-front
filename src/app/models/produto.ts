@@ -1,8 +1,8 @@
 export interface Produto{
 
-    nome: string;
-    descricao: string;
-    valor: number;
-    dispVenda: boolean;
+    nomeProduto: string;
+    descricaoProduto: string;
+    valorProduto: number;
+    disponivelParaVenda: boolean;
 
 }
