@@ -55,12 +55,15 @@ export class ProdutoCadComponent implements OnInit {
 
     console.log('Produto antes de enviar:', this.produto);
 
-    this.router.navigate(['/']);
+    
 
       // Chamar o serviço para cadastrar o produto no backend
       this.produtoService.cadastrarProduto(this.produto).subscribe(
         (response) => {
           console.log('Produto cadastrado com sucesso!', response);
+
+          
+          this.router.navigate(['/']);
         },
         (error) => {
           console.error('Erro ao cadastrar produto', error);
