@@ -71,10 +71,12 @@ export class ProdutoListaComponent implements OnInit {
   }
   
   deletarProduto(id: number): void {
+    const produto = this.dataSource.data.find(p => p.id === id); // Encontre o produto com base no id
+  
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        message: `Tem certeza que deseja excluir este produto?`,  // Mensagem de confirmação de exclusão
-        action: 'deletar'  // Identificador da ação (deletar)
+        message: `Tem certeza que deseja excluir o produto "${produto?.nomeProduto}"?`,  // Passa o nome do produto
+        action: 'deletar'  // Ação de exclusão
       }
     });
   
@@ -83,7 +85,7 @@ export class ProdutoListaComponent implements OnInit {
         this.produtoService.deletarProduto(id).subscribe(
           () => {
             console.log(`Produto com ID ${id} excluído com sucesso`);
-            this.carregarProdutos(); // Recarregar a lista de produtos após a exclusão
+            this.carregarProdutos(); // Recarrega a lista de produtos
           },
           (error) => {
             console.error('Erro ao excluir produto:', error);

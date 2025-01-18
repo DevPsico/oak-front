@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ProdutoCadComponent implements OnInit {
 
   produto: Produto = {
+    id: '',
     nomeProduto: '',
     descricaoProduto: '',
     valorProduto: 0,
