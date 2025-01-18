@@ -1,0 +1,7 @@
+<h1 mat-dialog-title>{{ data.message }}</h1>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button (click)="onConfirm()">
+    {{ data.action === 'editar' ? 'Confirmar Edição' : 'Confirmar Exclusão' }}
+  </button>
+</div>

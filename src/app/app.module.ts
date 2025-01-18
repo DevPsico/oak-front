@@ -20,12 +20,18 @@ import {MatInputModule} from '@angular/material/input';
 
 import localePt from '@angular/common/locales/pt'; 
 import { registerLocaleData } from '@angular/common';
+
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 registerLocaleData(localePt);  // Registrando a localidade pt-BR
 
 @NgModule({
   declarations: [
     AppComponent, 
-    ProdutoListaComponent, ProdutoCadComponent
+    ProdutoListaComponent, ProdutoCadComponent, ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -39,12 +45,17 @@ registerLocaleData(localePt);  // Registrando a localidade pt-BR
     MatFormFieldModule,
     MatButtonModule,
     MatRadioModule,
-    MatInputModule
+    MatInputModule,
+    MatIconModule,
+    MatCardModule,
+    MatDialogModule,
  
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: 'pt-BR' } // Define o locale para pt-BR
+    { provide: LOCALE_ID, useValue: 'pt-BR' }, // Define o locale para pt-BR
+    { provide: MAT_DIALOG_DATA, useValue: {} }
   ],
+  entryComponents: [ConfirmDialogComponent] ,
   bootstrap: [AppComponent]
 })
 export class AppModule { }

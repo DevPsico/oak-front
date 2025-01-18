@@ -18,11 +18,21 @@ export class ProdutoService {
 
   listarProdutos(): Observable<Produto[]> {
     return this.http.get<Produto[]>(this.apiUrl);
-    
-    
   }
+
+  deletarProduto(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  alterarProduto(id: number, produto: Produto): Observable<Produto> {
+    return this.http.put<Produto>(`${this.apiUrl}/${id}`, produto); // Usando PUT para alterar
+  }
+
+  buscarProdutoPorId(id: number): Observable<Produto> {
+    return this.http.get<Produto>(`${this.apiUrl}/${id}`); // Busca apenas o produto pelo ID
+  }
+ 
 }
 function tap(arg0: (data: any) => void): import("rxjs").OperatorFunction<Produto[], Produto[]> {
   throw new Error('Function not implemented.');
 }
-

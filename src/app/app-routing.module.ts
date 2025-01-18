@@ -10,7 +10,11 @@ const routes: Routes = [{
   
   {
     path: 'cadastroprod', component: ProdutoCadComponent
-  }];
+  },
+  {
+    path: 'cadastroprod/:id', component: ProdutoCadComponent
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -1,49 +1,49 @@
 <div class="container">
   <form (ngSubmit)="cadastrarProduto()" class="form mat-elevation-z8">
+    <h1>Cadastro de Produto</h1>
 
-    <h1>Cadastro de produto</h1>
-
-    <mat-form-field class="full-width" appearance="fill">
-      <mat-label>Nome Produto</mat-label>
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Nome do Produto</mat-label>
       <input [formControl]="nome" required matInput placeholder="Ex. Pizza" />
       <mat-error *ngIf="nome.invalid && nome.touched">
         O nome deve ter pelo menos 5 caracteres.
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="full-width" appearance="fill">
-      <mat-label>Descrição Produto</mat-label>
-      <input [formControl]="descricao" required matInput placeholder="Ex. Pizza" />
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Descrição do Produto</mat-label>
+      <input [formControl]="descricao" required matInput placeholder="Ex. Pizza sabor calabresa" />
       <mat-error *ngIf="descricao.invalid && descricao.touched">
         A descrição deve ter pelo menos 5 caracteres.
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="full-width" appearance="fill">
-      <mat-label>Valor Produto</mat-label>
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Valor do Produto</mat-label>
       <input [formControl]="valor" required type="number" matInput placeholder="Ex. 20,50" />
       <mat-error *ngIf="valor.invalid && valor.touched">
         O valor é obrigatório.
       </mat-error>
     </mat-form-field>
 
-    <h1>Produto disponível</h1>
-
-    <mat-radio-group [formControl]="dispVenda">
-      <mat-radio-button [value]="true">Sim</mat-radio-button>
-      <mat-radio-button [value]="false">Não</mat-radio-button>
-    </mat-radio-group>
-    <mat-error *ngIf="dispVenda.invalid && dispVenda.touched">
-      Selecione uma opção.
-    </mat-error>
+    <div class="radio-group">
+      <h2>Produto disponível?</h2>
+      <mat-radio-group [formControl]="dispVenda">
+        <mat-radio-button [value]="true">Sim</mat-radio-button>
+        <mat-radio-button [value]="false">Não</mat-radio-button>
+      </mat-radio-group>
+      <mat-error *ngIf="dispVenda.invalid && dispVenda.touched">
+        Selecione uma opção.
+      </mat-error>
+    </div>
 
     <button
-      class="full-width mat-elevation-z8"
+      class="submit-button"
       mat-raised-button
-      color="accent"
+      color="primary"
       [disabled]="!validaCampos()"
     >
-      Cadastrar Produto
+      Cadastrar produto
     </button>
   </form>
 </div>

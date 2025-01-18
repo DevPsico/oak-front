@@ -5,18 +5,25 @@ import { Produto } from 'src/app/models/produto';
 import { ProdutoService } from 'src/app/services/produto.services';
 import { Router } from '@angular/router';
 
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
+
 @Component({
   selector: 'app-produto-lista',
   templateUrl: './produto-lista.component.html',
   styleUrls: ['./produto-lista.component.css']
 })
 export class ProdutoListaComponent implements OnInit {
-  displayedColumns: string[] = ['nome', 'descricao', 'valor', 'dispVenda'];
+  displayedColumns: string[] = ['nome', 'descricao', 'valor', 'dispVenda', 'acoes'];
   dataSource = new MatTableDataSource<Produto>([]); // Inicializa com array vazio
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private produtoService: ProdutoService, private router: Router) {}
+  constructor(
+    private produtoService: ProdutoService, 
+    private router: Router,
+    public dialog: MatDialog,
+  ) {}
 
   ngOnInit(): void {
     this.carregarProdutos();
@@ -25,16 +32,67 @@ export class ProdutoListaComponent implements OnInit {
   carregarProdutos(): void {
     this.produtoService.listarProdutos().subscribe(
       (produtos) => {
-        console.log('Produtos recebidos:', produtos); // Verifique se os produtos estão sendo recebidos
-       
-             // Ordena os produtos pelo valor do menor para o maior
-      this.dataSource.data = produtos.sort((a, b) => a.valorProduto - b.valorProduto);
-        this.dataSource.paginator = this.paginator; // Configura o paginador
+        console.log('Produtos recebidos:', produtos);
+  
+        // Ordena os produtos pelo valor do menor para o maior
+        this.dataSource.data = produtos.sort((a, b) => a.valorProduto - b.valorProduto);
+        
+        // Atualiza o paginador
+        this.dataSource.paginator = this.paginator;
+  
+        // Reseta o índice da página para 0 para que o paginador volte à primeira página
+        this.paginator.pageIndex = 0;
       },
       (error) => {
         console.error('Erro ao carregar produtos:', error);
       }
     );
+  }
+  
+
+  alterarProduto(produto: any): void {
+    console.log('Editar produto:', produto);
+  
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        message: `Tem certeza que deseja editar o produto "${produto.nomeProduto}"?`,
+        action: 'editar'
+      }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Se o usuário confirmar, redireciona para a tela de edição
+        this.router.navigate(['/cadastroprod', produto.id]);
+      } else {
+        console.log('Edição cancelada');
+      }
+    });
+  }
+  
+  deletarProduto(id: number): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        message: `Tem certeza que deseja excluir este produto?`,  // Mensagem de confirmação de exclusão
+        action: 'deletar'  // Identificador da ação (deletar)
+      }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.produtoService.deletarProduto(id).subscribe(
+          () => {
+            console.log(`Produto com ID ${id} excluído com sucesso`);
+            this.carregarProdutos(); // Recarregar a lista de produtos após a exclusão
+          },
+          (error) => {
+            console.error('Erro ao excluir produto:', error);
+          }
+        );
+      } else {
+        console.log('Exclusão cancelada');
+      }
+    });
   }
 
   navigateToCadastroProduto(): void {
