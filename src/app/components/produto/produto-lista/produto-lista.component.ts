@@ -1,21 +1,25 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Produto } from 'src/app/models/produto';
 import { ProdutoService } from 'src/app/services/produto.services';
 import { Router } from '@angular/router';
-
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'app-produto-lista',
   templateUrl: './produto-lista.component.html',
   styleUrls: ['./produto-lista.component.css']
 })
-export class ProdutoListaComponent implements OnInit {
+export class ProdutoListaComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('inputBusca') inputBusca: any;  // Referência para o campo de busca
   displayedColumns: string[] = ['nome', 'descricao', 'valor', 'dispVenda', 'acoes'];
   dataSource = new MatTableDataSource<Produto>([]); // Inicializa com array vazio
+  produtos: Produto[] = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -25,30 +29,57 @@ export class ProdutoListaComponent implements OnInit {
     public dialog: MatDialog,
   ) {}
 
+    ngAfterViewInit(): void {
+    // Foca no campo de busca após a renderização da view
+    setTimeout(() => {
+      if (this.inputBusca) {
+        this.inputBusca.focus();
+      }
+    });
+  }
+
   ngOnInit(): void {
     this.carregarProdutos();
+
+      // Configura a lógica do filtro para considerar nome e descrição
+  this.dataSource.filterPredicate = (produto: Produto, filtro: string) => {
+    return produto.nomeProduto.toLowerCase().includes(filtro) ||
+           produto.descricaoProduto.toLowerCase().includes(filtro);
+  };
   }
+
+  
 
   carregarProdutos(): void {
     this.produtoService.listarProdutos().subscribe(
       (produtos) => {
         console.log('Produtos recebidos:', produtos);
-  
-        // Ordena os produtos pelo valor do menor para o maior
-        this.dataSource.data = produtos.sort((a, b) => a.valorProduto - b.valorProduto);
         
-        // Atualiza o paginador
-        this.dataSource.paginator = this.paginator;
+        this.produtos = produtos; // Armazena os produtos originais
+        this.dataSource.data = produtos; // Atribui os produtos à dataSource para exibição
   
-        // Reseta o índice da página para 0 para que o paginador volte à primeira página
-        this.paginator.pageIndex = 0;
+        // Atualiza o comprimento do paginador
+        this.dataSource.paginator = this.paginator;
+        this.paginator.pageSize = 5; // Garante que o paginador sempre comece com 5 itens
       },
       (error) => {
         console.error('Erro ao carregar produtos:', error);
       }
     );
   }
-  
+
+
+  aplicarBusca(event: Event): void {
+    const filtro = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    
+    this.dataSource.data = this.produtos.filter(produto =>
+      produto.nomeProduto.toLowerCase().includes(filtro) ||
+      produto.descricaoProduto.toLowerCase().includes(filtro)
+    );
+  }
+
+
+
 
   alterarProduto(produto: any): void {
     console.log('Editar produto:', produto);
@@ -95,6 +126,34 @@ export class ProdutoListaComponent implements OnInit {
         console.log('Exclusão cancelada');
       }
     });
+  }
+
+  gerarPDF() {
+    const doc = new jsPDF();
+  
+    // Título do PDF
+    doc.text('Lista de Produtos', 10, 10);
+  
+    // Definição das colunas
+    const colunas = ['Nome', 'Descrição', 'Valor', 'Disponível para Venda'];
+  
+    // Pegando os dados da tabela
+    const linhas = this.dataSource.data.map(p => [
+      p.nomeProduto,
+      p.descricaoProduto,
+      `R$ ${p.valorProduto.toFixed(2)}`, // Formata o valor como moeda
+      p.disponivelParaVenda ? 'Sim' : 'Não'
+    ]);
+  
+    // Criando a tabela no PDF
+    autoTable(doc, {
+      head: [colunas],
+      body: linhas,
+      startY: 20,
+    });
+  
+    // Baixar o PDF
+    doc.save('lista_produtos.pdf');
   }
 
   navigateToCadastroProduto(): void {

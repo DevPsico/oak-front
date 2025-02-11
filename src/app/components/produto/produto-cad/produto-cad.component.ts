@@ -21,7 +21,7 @@ export class ProdutoCadComponent implements OnInit {
 
   nome = new FormControl(null, Validators.minLength(5));
   descricao = new FormControl(null, Validators.minLength(5));
-  valor = new FormControl(null, Validators.required);
+  valor = new FormControl(null, [Validators.required, Validators.min(1)]);
   dispVenda = new FormControl(null, Validators.required);
 
   idProduto: number | null = null; // Para armazenar o ID do produto em edição
@@ -68,16 +68,11 @@ export class ProdutoCadComponent implements OnInit {
   }
 
   validaCampos(): boolean {
-    console.log('Nome válido: ', this.nome.valid);
-    console.log('Descrição válida: ', this.descricao.valid);
-    console.log('Valor válido: ', this.valor.valid && this.valor.value > 1);
-    console.log('Disponível para venda válido: ', this.dispVenda.valid);
 
     return (
       this.nome.valid &&
       this.descricao.valid &&
       this.valor.valid &&
-      this.valor.value > 1 &&
       this.dispVenda.valid
     );
   }

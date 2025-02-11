@@ -4,9 +4,49 @@
   padding: 45px;
 }
 
+.cabecalho-label {
+  font-size: 12px;  /* Ajusta o tamanho da fonte */
+  font-weight: bold;  /* Deixa o texto em negrito */
+  font-family: 'Roboto', sans-serif; /* Usa uma fonte personalizada */
+  text-transform: uppercase; /* Deixa o texto em maiúsculas */
+  padding:  1%;
+
+}
+
+/* Container do campo de busca */
+mat-form-field {
+  width: 100%;                       /* Garante que o campo ocupe toda a largura disponível */
+  margin-bottom: 16px;                /* Espaçamento abaixo */
+  border-radius: 8px;                 /* Borda arredondada no container */
+  box-sizing: border-box;             /* Garante que o padding não ultrapasse o container */
+}
+
+/* Estilo do input de busca */
+mat-form-field input {
+  padding: 12px 40px 12px 16px;      /* Ajusta o padding para o ícone */
+  font-size: 16px;                    /* Tamanho da fonte */
+  border-radius: 8px;                 /* Bordas arredondadas */
+  border: 1px solid #ddd;            /* Borda suave */
+  background-color: #f9f9f9;         /* Fundo suave no input */
+  transition: all 0.3s ease;          /* Transições suaves para borda e fundo */
+  width: 100%;                        /* Garante que o input ocupe toda a largura do mat-form-field */
+  box-sizing: border-box;             /* Para garantir que o padding não ultrapasse o tamanho do campo */
+}
+
+/* Alteração do fundo e borda ao focar */
+mat-form-field input:focus {
+  border-color: #1976d2;              /* Cor de borda ao focar */
+  background-color: #fff;             /* Fundo branco ao focar */
+ 
+}
+
+.search-icon-button mat-icon {
+    font-size: 18px;      /* Ícone menor em telas pequenas */
+}
+
 .form {
   border-radius: 8px; 
-  background-color: gray;
+  background-color: white;
 }
 
 h1 {
@@ -20,11 +60,12 @@ h1 {
 
 table {
   width: 100%;
-  background-color: gray;
+  background-color: white;
 }
 
 button {
-  margin-top: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .example-label {
@@ -56,13 +97,33 @@ button {
 }
 
 .mat-header-cell {
-  color: white !important; 
-  background-color: #333; 
+  color: black !important; 
+  background-color: white; 
   text-align: justify;
- 
-  
 }
 
+/* Estilo do botão Gerar PDF */
+.pdf-button {
+  background-color: #1976d2; /* Azul */
+  color: white;
+  border-radius: 50%; /* Deixa o botão redondo */
+  padding: 8px; /* Ajusta o tamanho do botão */
+  border: none;
+  transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Hover para o botão PDF */
+.pdf-button:hover {
+  background-color: #1565c0; /* Azul mais escuro ao passar o mouse */
+}
+
+/* Tamanho do ícone */
+.pdf-button mat-icon {
+  font-size: 24px; /* Ajusta o tamanho do ícone */
+}
 
 /* Alinhamento dos botões de ação dentro da tabela */
 .acoes-buttons {
@@ -71,7 +132,6 @@ button {
   justify-content: flex-start;
   gap: 10px; 
   align-items: center; 
-  
   
 }
 
@@ -83,6 +143,7 @@ mat-icon {
 
 /* Ajustando o botão "Cadastrar Produto" */
 button[mat-raised-button] {
+  background-color: #1565c0;
   margin-top: 20px;
   display: block;
   margin-left: auto;
@@ -95,7 +156,7 @@ mat-paginator {
   margin-top: 20px; /* Dá uma margem acima para o paginator */
   padding-top: 0;
   padding-bottom: 0;
-  background-color: gray;
+  background-color: white;
   
   /* Remove qualquer margem inferior extra no paginator */
 }
@@ -104,3 +165,4 @@ mat-paginator {
 .mat-elevation-z8 {
   margin-bottom: 0 !important; /* Remove qualquer margem extra na parte inferior da tabela */
 }
+

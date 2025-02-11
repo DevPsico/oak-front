@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" >
   <form (ngSubmit)="cadastrarProduto()" class="form mat-elevation-z8">
     <h1>Cadastro de Produto</h1>
 
@@ -7,7 +7,7 @@
       <input [formControl]="nome" required matInput placeholder="Ex. Pizza" />
       <mat-error *ngIf="nome.invalid && nome.touched">
         O nome deve ter pelo menos 5 caracteres.
-      </mat-error>
+      </mat-error> 
     </mat-form-field>
 
     <mat-form-field class="full-width" appearance="outline">
@@ -21,9 +21,10 @@
     <mat-form-field class="full-width" appearance="outline">
       <mat-label>Valor do Produto</mat-label>
       <input [formControl]="valor" required type="number" matInput placeholder="Ex. 20,50" />
-      <mat-error *ngIf="valor.invalid && valor.touched">
-        O valor é obrigatório.
-      </mat-error>
+
+    <mat-error *ngIf="valor.hasError('min') && valor.touched">
+      O valor deve ser maior que 0.
+    </mat-error>
     </mat-form-field>
 
     <div class="radio-group">

@@ -25,13 +25,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+
+
 
 registerLocaleData(localePt);  // Registrando a localidade pt-BR
 
 @NgModule({
   declarations: [
     AppComponent, 
-    ProdutoListaComponent, ProdutoCadComponent, ConfirmDialogComponent
+    ProdutoListaComponent, ProdutoCadComponent, ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +52,8 @@ registerLocaleData(localePt);  // Registrando a localidade pt-BR
     MatIconModule,
     MatCardModule,
     MatDialogModule,
+    MatSelectModule, 
+
  
   ],
   providers: [

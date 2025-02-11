@@ -2,6 +2,15 @@
   <div class="form mat-elevation-z8">
     <h1>Lista de Produtos</h1>
 
+    <mat-form-field appearance="fill">
+      <mat-label class="cabecalho-label">Pesquisar por Produto</mat-label>
+      <input matInput (input)="aplicarBusca($event)" placeholder="Buscar por nome ou descrição">
+  
+    </mat-form-field>
+    
+
+     
+
     <table mat-table [dataSource]="dataSource" >
       <ng-container matColumnDef="nome">
         <th mat-header-cell *matHeaderCellDef > Nome </th>
@@ -33,6 +42,9 @@
             <button mat-icon-button class="delete-button" (click)="deletarProduto(produto.id)">
               <mat-icon>delete</mat-icon>
             </button>
+            <button class="pdf-button" (click)="gerarPDF()">
+              <mat-icon>picture_as_pdf</mat-icon>
+            </button>
           </div>
         </td>
       </ng-container>
@@ -44,7 +56,7 @@
     <mat-paginator [length]="dataSource.data.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" aria-label="Select page"></mat-paginator>
 
     <button (click)="navigateToCadastroProduto()" mat-raised-button color="accent" class="submit-button">
-      Cadastrar Produto
+      CADASTRAR PRODUTO
     </button>
   </div>
-</div>
+
