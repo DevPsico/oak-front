@@ -1,27 +1,59 @@
-# OakFront
+# Oak Front
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.3.
+Este é um projeto Angular 12 com Material Design, criado para fornecer uma interface moderna e responsiva.
 
-## Development server
+## Requisitos
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Antes de iniciar, certifique-se de ter instalado:
 
-## Code scaffolding
+- [Node.js](https://nodejs.org/) (versão recomendada: 14 ou superior)
+- [Angular CLI](https://angular.io/cli) (versão 12.0.3)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Instalação
 
-## Build
+Clone este repositório e instale as dependências:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```sh
+# Clone o repositório
+git clone https://github.com/seu-usuario/oak-front.git
 
-## Running unit tests
+# Acesse o diretório do projeto
+cd oak-front
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+# Instale as dependências
+npm install
+```
 
-## Running end-to-end tests
+## Executando o Projeto
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Para rodar a aplicação localmente, utilize:
 
-## Further help
+```sh
+npm start
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Isso iniciará o servidor de desenvolvimento, e a aplicação poderá ser acessada via [http://localhost:4200](http://localhost:4200).
+
+## Build para Produção
+
+Para gerar os arquivos otimizados para produção, execute:
+
+```sh
+npm run build
+```
+
+Os arquivos serão gerados no diretório `dist/oak-front`.
+
+## Estrutura do Projeto
+
+- `src/app` - Contém os componentes, serviços e módulos da aplicação.
+- `src/assets` - Arquivos estáticos, como imagens e fontes.
+- `src/environments` - Configurações para diferentes ambientes (desenvolvimento e produção).
+- `angular.json` - Configuração do projeto Angular.
+- `package.json` - Gerenciamento de dependências e scripts.
+
+## Tecnologias Utilizadas
+
+- Angular 12
+- Angular Material
+- RxJS
